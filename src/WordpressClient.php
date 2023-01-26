@@ -273,6 +273,26 @@ class WordpressClient
 
         return $this->sendRequest('wp.getPosts', $params);
     }
+    
+    
+    /**
+     * Retrieve list of posts of any registered post type.
+     *
+     * @param array $filters optional
+     * @param array $fields  optional
+     *
+     * @return array array of struct
+     * @link http://codex.wordpress.org/XML-RPC_WordPress_API/Posts#wp.getPosts
+     */
+    function getPages(array $filters = array(), array $fields = array())
+    {
+        $params = array(1, $this->username, $this->password, $filters);
+        if (!empty($fields)) {
+            $params[] = $fields;
+        }
+
+        return $this->sendRequest('wp.getPages', $params);
+    }
 
     /**
      * Create a new post of any registered post type.
@@ -301,6 +321,28 @@ class WordpressClient
         $params = array(1, $this->username, $this->password, $content);
 
         return $this->sendRequest('wp.newPost', $params);
+    }
+    
+    
+    /**
+     * Edit an existing post of any registered post type.
+     *
+     * @param integer $postId       the id of selected post
+     * @param string  $title        the new title
+     * @param string  $body         the new body
+     * @param array   $categorieIds the new list of category ids
+     * @param integer $thumbnailId  the new thumbnail id
+     * @param array   $content      the advanced array
+     *
+     * @return boolean
+     *
+     * @link http://codex.wordpress.org/XML-RPC_WordPress_API/Posts#wp.editPost
+     */
+    function editPage($postId, array $content, bool $publish)
+    {
+        $params = array(1, $this->username, $this->password, $postId, $content, $publish);
+
+        return $this->sendRequest('wp.editPage', $params);
     }
 
     /**
