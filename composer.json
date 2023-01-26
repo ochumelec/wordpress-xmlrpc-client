@@ -27,5 +27,5 @@
 			"HieuLe\\WordpressXmlrpcClient\\": "src/"
 		}
 	},
-	"minimum-stability": "stable"
+	"minimum-stability": "dev"
 }
